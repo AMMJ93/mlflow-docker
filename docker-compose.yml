@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mlflow:
+    build:
+      context: ./mlflow
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
+  postgres:
+    build:
+      context: ./postgres
+    restart: always
+    environment:
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'secret'
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-store:/var/lib/postgresql/data
+volumes:
+  postgres-store:
